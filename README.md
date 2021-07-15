@@ -1,6 +1,6 @@
 # Helm push action
 
-This action package helm chart and publish it to your chartmuseum.
+This action packages a helm chart and publish it to your chartmuseum.
 
 ## Usage
 

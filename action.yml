@@ -1,6 +1,6 @@
 name: 'Helm Push Action'
 description: 'Package helm chart and push it to Chartmuseum'
-author: 'Goodsmileduck'
+author: 'LinkPool'
 branding:
   color: 'blue'
   icon: 'upload-cloud'
