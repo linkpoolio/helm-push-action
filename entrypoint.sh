@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 if [ -z "$CHARTMUSEUM_URL" ]; then
   echo "CHARTMUSEUM_URL is not set. Quitting."
