@@ -1,6 +1,10 @@
-# Helm push action
+# Helm Repo Push Action
 
-This action packages a helm chart and publish it to your chartmuseum.
+This Github Action is a fork of goodsmileduck's [helm push action](https://github.com/Goodsmileduck/helm-push-action). 
+
+This fork varies in that rather than pushing just a singular helm chart, it will push all of the charts in the given `${SOURCE_DIR}`.
+
+Thus if you are running a Github Repository for managing all of your helm charts in one place, you can use this Github Action to automate pushing all of your charts with a very simple CI configuration.
 
 ## Usage
 
@@ -9,7 +13,7 @@ This action packages a helm chart and publish it to your chartmuseum.
 Place in a `.yml` file such as this one in your `.github/workflows` folder. [Refer to the documentation on workflow YAML syntax here.](https://help.github.com/en/articles/workflow-syntax-for-github-actions)
 
 ```yaml
-name: Build & Push ecs-exporter chart
+name: release incubator charts
 on: push
 
 jobs:
@@ -17,9 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: goodsmileduck/helm-push-action@v2
+    - uses: linkpoolio/helm-push-action@v3
       env:
-        SOURCE_DIR: '.'
+        SOURCE_DIR: './incubator'
         FORCE: 'True'
         CHARTMUSEUM_URL: 'https://chartmuseum.url'
         CHARTMUSEUM_USER: '${{ secrets.CHARTMUSEUM_USER }}'
@@ -32,7 +36,6 @@ The following settings must be passed as environment variables as shown in the e
 
 | Key | Value | Suggested Type | Required |
 | ------------- | ------------- | ------------- | ------------- |
-| `CHART_FOLDER` | Folder with charts in repo | `env` | **Yes** |
 | `CHARTMUSEUM_URL` | Chartmuseum url | `env` | **Yes** |
 | `CHARTMUSEUM_USER` | Username for chartmuseum  | `secret` | **Yes** |
 | `CHARTMUSEUM_PASSWORD` | Password for chartmuseum | `secret` | **Yes** |
