@@ -1,14 +1,26 @@
-name: 'Helm Push Action'
-description: 'Package helm chart and push it to Chartmuseum'
+name: 'Helm Repo Pusher'
+description: 'Push an entire collection of helm charts to a ChartMuseum repository from your GitHub repository.'
 author: 'LinkPool'
 branding:
   color: 'blue'
   icon: 'upload-cloud'
 inputs: 
-  ChartmuseumUrl:
-    description: 'Url to your Chartmuseum'
+  CHARTMUSEUM_URL:
+    description: 'Url to your ChartMuseum'
+    required: true
+    default: ''
+  CHARTMUSEUM_USERNAME:
+    description: 'Username for your ChartMuseum'
+    required: true
+    default: ''
+  CHARTMUSEUM_PASSWORD:
+    description: 'Password for your ChartMuseum'
+    required: true
+    default: ''
+  SOURCE_DIR:
+    description: 'The directory of charts you wish to upload to ChartMuseum"
+    required: true
     default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  

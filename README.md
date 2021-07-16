@@ -1,10 +1,14 @@
-# Helm Repo Push Action
+# Helm Repo Pusher
+
+Pushes an entire directory of Helm Charts to a [ChartMuseum](https://chartmuseum.com/) instance.
 
 This Github Action is a fork of goodsmileduck's [helm push action](https://github.com/Goodsmileduck/helm-push-action). 
 
 This fork varies in that rather than pushing just a singular helm chart, it will push all of the charts in the given `${SOURCE_DIR}`.
 
-Thus if you are running a Github Repository for managing all of your helm charts in one place, you can use this Github Action to automate pushing all of your charts with a very simple CI configuration.
+Thus if you are using a GitHub Repository to manage all of your helm charts in one place, you can use this Github Action to automate pushing all of your charts with a very simple CI configuration.
+
+You can also manage multiple Chart repositories (e.g. `stable` and `incubator`) from the same GitHub repository and use this Action to publish each.
 
 ## Usage
 
@@ -14,7 +18,13 @@ Place in a `.yml` file such as this one in your `.github/workflows` folder. [Ref
 
 ```yaml
 name: release incubator charts
-on: push
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'incubator/**'
 
 jobs:
   deploy:
@@ -39,7 +49,7 @@ The following settings must be passed as environment variables as shown in the e
 | `CHARTMUSEUM_URL` | Chartmuseum url | `env` | **Yes** |
 | `CHARTMUSEUM_USER` | Username for chartmuseum  | `secret` | **Yes** |
 | `CHARTMUSEUM_PASSWORD` | Password for chartmuseum | `secret` | **Yes** |
-| `SOURCE_DIR` | The local directory you wish to upload. For example, `./charts`. Defaults to the root of your repository (`.`) if not provided. | `env` | No |
+| `SOURCE_DIR` | The local directory you wish to upload. For example, `./charts`. Defaults to the root of your repository (`.`) if not provided. | `env` | **Yes** |
 | `FORCE` | Force chart upload (in case version exist in chartmuseum, upload will fail without `FORCE`). Defaults is `False` if not provided. | `env` | No |
 
 ## Action versions
