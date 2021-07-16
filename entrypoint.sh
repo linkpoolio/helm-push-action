@@ -21,19 +21,18 @@ if [ -z "$SOURCE_DIR" ]; then
   SOURCE_DIR="."
 fi
 
-if [ -z "$FORCE" ]; then
-  FORCE=""
-elif [ "$FORCE" == "1" ] || [ "$FORCE" == "True" ] || [ "$FORCE" == "TRUE" ]; then
+if [ "$FORCE" == "1" ] || [ "$FORCE" == "True" ] || [ "$FORCE" == "TRUE" ]; then
   FORCE="-f"
+else
+  FORCE=""
 fi
-
 
 
 cd ${SOURCE_DIR}
 
-for CHART in */ ; do
+for CHARTDIR in */ ; do
 
-  cd $CHART
+  cd $CHARTDIR
 
   helm version -c
 
@@ -42,6 +41,8 @@ for CHART in */ ; do
   helm dependency update .
 
   helm package .
+
+  CHART="$(echo $CHARTDIR | sed 's/.$//')"
 
   helm push ${CHART}-* ${CHARTMUSEUM_URL} -u ${CHARTMUSEUM_USER} -p ${CHARTMUSEUM_PASSWORD} ${FORCE}
 
