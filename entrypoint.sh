@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-if [ -z "$CHART_FOLDER" ]; then
-  echo "CHART_FOLDER is not set. Quitting."
-  exit 1
-fi
-
 if [ -z "$CHARTMUSEUM_URL" ]; then
   echo "CHARTMUSEUM_URL is not set. Quitting."
   exit 1
@@ -33,14 +28,21 @@ fi
 
 
 
-cd ${SOURCE_DIR}/${CHART_FOLDER}
+cd ${SOURCE_DIR}
 
-helm version -c
+for CHART in */ ; do
 
-helm inspect chart .
+  cd $CHART
 
-helm dependency update .
+  helm version -c
 
-helm package .
+  helm inspect chart .
 
-helm push ${CHART_FOLDER}-* ${CHARTMUSEUM_URL} -u ${CHARTMUSEUM_USER} -p ${CHARTMUSEUM_PASSWORD} ${FORCE}
+  helm dependency update .
+
+  helm package .
+
+  helm push ${CHART}-* ${CHARTMUSEUM_URL} -u ${CHARTMUSEUM_USER} -p ${CHARTMUSEUM_PASSWORD} ${FORCE}
+
+  cd -
+done

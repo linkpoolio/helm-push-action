@@ -20,7 +20,6 @@ jobs:
     - uses: goodsmileduck/helm-push-action@v2
       env:
         SOURCE_DIR: '.'
-        CHART_FOLDER: 'ecs-exporter'
         FORCE: 'True'
         CHARTMUSEUM_URL: 'https://chartmuseum.url'
         CHARTMUSEUM_USER: '${{ secrets.CHARTMUSEUM_USER }}'
