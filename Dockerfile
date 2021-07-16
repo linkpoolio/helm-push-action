@@ -1,7 +1,7 @@
 FROM plugins/base:linux-amd64
 
 LABEL maintainer="Daniel O'Sullivan <daniel@linkpool.io>" \
-  org.label-schema.name="helm chart push" \
+  org.label-schema.name="Helm Repo Pusher" \
   org.label-schema.vendor="LinkPool" \
   org.label-schema.schema-version="1.0"
 

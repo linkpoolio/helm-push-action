@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: linkpoolio/helm-push-action@v3
+    - uses: linkpoolio/helm-repo-pusher@v3
       env:
         SOURCE_DIR: './incubator'
         FORCE: 'True'
